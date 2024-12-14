@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../provider/AuthProvider';
 
 const Navbar = () => {
+    //show the user
+    const {user}= useContext(AuthContext);
     const list = (
         <ul className='flex lg:flex-row flex-col gap-2 text-white'>
             <Link to="/"><li className='hover:text-neon-green'>Home</li></Link>
@@ -11,8 +14,11 @@ const Navbar = () => {
             <Link to="/watchList"><li className='hover:text-neon-green'>Watch List</li></Link>
             <Link to="/login"><li className='hover:text-neon-green'>Login</li></Link>
             <Link to="/register"><li className='hover:text-neon-green'>Register</li></Link>
+            <Link to=""><li className='hover:text-neon-green'>{user}</li></Link>
         </ul>
     );
+
+ 
 
     return (
         <div className="navbar bg-gray-800 z-50">

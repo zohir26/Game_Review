@@ -1,18 +1,56 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
-
+import { auth, AuthContext } from '../provider/AuthProvider';
+import { FaGoogle } from "react-icons/fa";
+import { GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup } from 'firebase/auth';
 const Register = () => {
-  const handleRegister= (event)=>{
-    event.preventDefault();
-    const form=event.target;
-    const name=form.name.value;
-    const email = form.email.value;
-    const password=form.password.value;
-    const newUser= {name,email,password};
-    console.log(newUser)
-  }
+
+    const { createNewUser } = useContext(AuthContext);
+
+    const handleRegister = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const newUser = { name, email, password };
+        console.log(newUser)
+
+        createNewUser(email, password)
+            .then((userCredential) => {
+                // Signed up 
+                const user = userCredential.user;
+                console.log(user)
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+                console.log(errorCode, errorMessage)
+            });
+    }
+    //sign in with google
+    const provider = new GoogleAuthProvider();
+    // The addScope method adds a specific scope to the authentication request. A scope defines what data and actions your application can access on behalf of the user.
+    // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    const handleGoogleSignUp = () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const user = result.user;
+                console.log(user)
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                console.log(errorCode, errorMessage)
+                // ...
+            });
+    }
     return (
         <div>
             <Navbar></Navbar>
@@ -51,6 +89,8 @@ const Register = () => {
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Register</button>
+                                <p className='text-center font-bold py-2'>Or</p>
+                                <button onClick={handleGoogleSignUp} className='btn btn-primary'> <FaGoogle /> SignUp With Google</button>
                             </div>
                         </form>
                     </div>
