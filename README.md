@@ -1,8 +1,12 @@
-# React + Vite
+## Chill Gamers
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Live links:
+1. Firebase: [firebase](https://game-review-5c3bc.firebaseapp.com/)
+2. Surge: [Surge](https://chillgamers.surge.sh/)
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Core feature:
+1. Slider with swiper.
+2. Firebase authentication (sign up ,sign in, forget password, update user)
+3. Private route
+4. MongoDB use for backend
+5. Full Stack Application
