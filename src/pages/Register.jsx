@@ -7,17 +7,18 @@ import { FaGoogle } from "react-icons/fa";
 import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from 'firebase/auth';
 const Register = () => {
-
-    const { createNewUser } = useContext(AuthContext);
+   
+    const { createNewUser, setUser} = useContext(AuthContext);
 
     const handleRegister = (event) => {
         event.preventDefault();
-        const form = event.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const password = form.password.value;
-        const newUser = { name, email, password };
-        console.log(newUser)
+      const form = event.target;
+      const name= form.name.value;
+      const photo=form.photo.value;
+      const email= form.email.value;
+      const password =form.password.value;
+      const updatedUser= {name,photo,email,password}
+      console.log(updatedUser)
 
         createNewUser(email, password)
             .then((userCredential) => {
@@ -38,9 +39,13 @@ const Register = () => {
     // The addScope method adds a specific scope to the authentication request. A scope defines what data and actions your application can access on behalf of the user.
     // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     const handleGoogleSignUp = () => {
+
+      
+      //google login
         signInWithPopup(auth, provider)
             .then((result) => {
                 const user = result.user;
+                setUser(user)
                 console.log(user)
             }).catch((error) => {
                 // Handle Errors here.
@@ -68,6 +73,12 @@ const Register = () => {
                                 </label>
                                 <input type="text" placeholder="Enter your name" name='name' className="input input-bordered" required />
                             </div>
+                            {/* <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo URL</span>
+                                </label>
+                                <input type="text" placeholder="Enter your name" name='photo' className="input input-bordered" required />
+                            </div> */}
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
@@ -79,10 +90,8 @@ const Register = () => {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input type="password" name='password' placeholder="password" className="input input-bordered" required />
-                                <label className="label">
-                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                                </label>
-                                <p className='text-center'>If registered please
+                                
+                                <p className='text-center py-3'>If registered please
                                     <Link className='text-green-600' to='/login'> Sign in </Link>
 
                                 </p>

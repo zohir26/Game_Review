@@ -1,25 +1,69 @@
 import React, { useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, Navigate, NavLink } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
-
+import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
     //show the user
-    const {user}= useContext(AuthContext);
+    const { user, logOut,setUser } = useContext(AuthContext);
+const navigate=useNavigate();
     const list = (
-        <ul className='flex lg:flex-row flex-col gap-2 text-white'>
-            <Link to="/"><li className='hover:text-neon-green'>Home</li></Link>
-            <Link to="/allReviews"><li className='hover:text-neon-green'>All Reviews</li></Link>
-            <Link to="/addReview"><li className='hover:text-neon-green'>Add Reviews</li></Link>
-            <Link to="/myReviews"><li className='hover:text-neon-green'>My Reviews</li></Link>
-            <Link to="/watchList"><li className='hover:text-neon-green'>Watch List</li></Link>
-            <Link to="/login"><li className='hover:text-neon-green'>Login</li></Link>
-            <Link to="/register"><li className='hover:text-neon-green'>Register</li></Link>
-            <Link to=""><li className='hover:text-neon-green'>{user}</li></Link>
+        <ul className='flex lg:flex-row flex-col gap-2 text-white justify-center items-center'>
+            <NavLink to="/" className='hover:text-neon-green'><li>Home</li></NavLink>
+           {
+            user && user.email ? <>
+             <NavLink to="/allReviews" className='hover:text-neon-green'><li>All Reviews</li></NavLink>
+            <NavLink to="/addReview" className='hover:text-neon-green'><li>Add Reviews</li></NavLink>
+            <NavLink to="/myReviews" className='hover:text-neon-green'><li>My Reviews</li></NavLink>
+            <NavLink to="/watchList" className='hover:text-neon-green'><li>Watch List</li></NavLink>
+            <NavLink to="/updateUser" className='text-white'><li>Update User</li></NavLink>
+
+            </>: ""
+           }
+            {/* hide login and register when user logged in */}
+            {
+                user && user.email ? "" : <>
+
+                    <NavLink to="/login" className='hover:text-neon-green'><li>Login</li></NavLink>
+                    <NavLink to="/register" className='hover:text-neon-green'><li>Register</li></NavLink>
+                </>
+            }
+            {/* show email in navbar */}
+            {/* {user && user.email ? <NavLink to="/" className='text-blue-400'><li>{user.displayName} </li></NavLink>
+                : ""
+            } */}
+
+{user && user.email ? (
+    <NavLink to="/" className="flex justify-center items-center space-x-2">
+        {/* Profile Picture */}
+        {user.photoURL && (
+            <img 
+                src={user.photoURL} 
+                alt={user.displayName} 
+                className="w-8 h-8 rounded-full" 
+            />
+        )}
+
+        {/* User Name */}
+        <li className="text-blue-400">
+            {user.displayName}
+        </li>
+    </NavLink>
+) : ""}
+
         </ul>
     );
 
- 
-
+    const handleLogOut = () => {
+        logOut()
+            .then((result) => {
+                console.log(result)
+                navigate('/login')
+                setUser(null)
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    }
     return (
         <div className="navbar bg-gray-800 z-50">
             <div className="navbar-start">
@@ -52,7 +96,13 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <button className="btn bg-neon-green text-gray-800">Button</button>
+                {user && user.email ? (
+                    <button onClick={handleLogOut} className="btn bg-neon-green text-gray-800">Log Out</button>
+                ) : (
+                    <NavLink to="/login">
+                        <button className="btn bg-neon-green text-gray-800">Login</button>
+                    </NavLink>
+                )}
             </div>
         </div>
     );
