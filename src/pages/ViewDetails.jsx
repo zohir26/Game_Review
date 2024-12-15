@@ -43,10 +43,14 @@ const ViewDetails = () => {
                         <div className="mt-6">
                             <p className="text-sm text-gray-600">Reviewed by: <span className="font-semibold">{review.userName}</span> ({review.userEmail})</p>
                         </div>
-                        <div className="card-actions justify-end mt-6">
+                        <div className="card-actions justify-end mt-6 flex gap-4">
+                        <Link to='/'>
+                           
+                           <button className="btn btn-primary">Add to Watch list</button></Link>
                            <Link to='/'>
                            
                            <button className="btn btn-primary">Back to Reviews</button></Link>
+
                         </div>
                     </div>
                 </div>
@@ -57,3 +61,7 @@ const ViewDetails = () => {
 };
 
 export default ViewDetails;
+
+
+
+

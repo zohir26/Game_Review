@@ -13,6 +13,8 @@ import Register from "../pages/Register";
 import PrivateRoute from "../routes/PrivateRoute"
 import UpdateUser from "../pages/UpdateUser";
 import ViewDetails from "../pages/ViewDetails";
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
 
 
 const router = createBrowserRouter([
@@ -49,6 +51,7 @@ const router = createBrowserRouter([
           <MyReview></MyReview>
         </PrivateRoute>
       ),
+      
     },
     {
       path: "/watchList",

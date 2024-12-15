@@ -1,23 +1,23 @@
 import React, { useContext } from 'react';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth, AuthContext } from '../provider/AuthProvider';
 import { FaGoogle } from "react-icons/fa";
 import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from 'firebase/auth';
 const Register = () => {
-   
+    const navigate= useNavigate()
     const { createNewUser, setUser} = useContext(AuthContext);
 
     const handleRegister = (event) => {
         event.preventDefault();
       const form = event.target;
       const name= form.name.value;
-      const photo=form.photo.value;
+    //   const photo=form.photo.value;
       const email= form.email.value;
       const password =form.password.value;
-      const updatedUser= {name,photo,email,password}
+      const updatedUser= {name,email,password}
       console.log(updatedUser)
 
         createNewUser(email, password)
@@ -25,6 +25,7 @@ const Register = () => {
                 // Signed up 
                 const user = userCredential.user;
                 console.log(user)
+                    navigate('/')
                 // ...
             })
             .catch((error) => {

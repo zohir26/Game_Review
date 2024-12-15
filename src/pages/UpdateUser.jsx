@@ -107,8 +107,10 @@ import Swal from 'sweetalert2'
 import Navbar from '../components/Navbar';
 import { auth, AuthContext } from '../provider/AuthProvider';
 import { updateProfile, updateEmail, updatePassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateUser = () => {
+   const navigate=useNavigate()
     const { user, setUser } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         name: user?.displayName || '',
@@ -137,7 +139,7 @@ const UpdateUser = () => {
                         
                         icon: "success"
                       });
-                    
+                    navigate('/')
                     
                     console.log('User profile updated');
                 })
