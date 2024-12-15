@@ -68,7 +68,7 @@ const navigate=useNavigate();
         <div className="navbar bg-gray-800 z-50">
             <div className="navbar-start">
                 <div className="dropdown">
-                    <button tabIndex={0} className="btn btn-ghost lg:hidden">
+                    <button tabIndex={0} className="btn btn-ghost lg:hidden text-white">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="flex flex-col gap-3 h-5 w-5"

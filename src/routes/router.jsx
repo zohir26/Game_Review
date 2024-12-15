@@ -12,21 +12,24 @@ import HomeLayout from "../layouts/HomeLayout";
 import Register from "../pages/Register";
 import PrivateRoute from "../routes/PrivateRoute"
 import UpdateUser from "../pages/UpdateUser";
+import ViewDetails from "../pages/ViewDetails";
 
 
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <HomeLayout></HomeLayout>,
-    },
-    {
-      path: "/allReviews",
-      element: (
-        <PrivateRoute>
-          <AllReviews></AllReviews>
-        </PrivateRoute>
-      ),
-    },
+  {
+    path: "/",
+    element: <HomeLayout></HomeLayout>,
+    loader: () => fetch('http://localhost:5000/addReview').then(res => res.json()),
+  },
+  {
+    path: "/allReviews",
+    element: (
+      <PrivateRoute>
+        <AllReviews></AllReviews>
+      </PrivateRoute>
+    ),
+    loader: () => fetch('http://localhost:5000/reviews').then(res => res.json()),
+  },
     {
       path: "/addReview",
       element: (
@@ -34,6 +37,10 @@ const router = createBrowserRouter([
           <AddReview></AddReview>
         </PrivateRoute>
       ),
+    },
+    {
+      path:"/review/:id",
+      element:<ViewDetails></ViewDetails>
     },
     {
       path: "/myReviews",
@@ -59,6 +66,7 @@ const router = createBrowserRouter([
       path: "/login",
       element: <Login></Login>,
     },
+    
     {
       path: "/register",
       element: <Register></Register>,
