@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Loading from '../components/Loading';
+
 
 const AllReviews = () => {
     const allReview = useLoaderData(); // Data loaded from the server
-    const [reviews, setReviews] = useState(allReview); // State to manage reviews
+    const [loading, setLoading] = useState(true); // Loading state
+    const [reviews, setReviews] = useState([]); // State to manage reviews
     const [genreFilter, setGenreFilter] = useState('All'); // State for genre filtering
+
+    // Set reviews state once the data is loaded
+    useEffect(() => {
+        if (allReview) {
+            setReviews(allReview);
+            setLoading(false);
+        }
+    }, [allReview]);
+
+    if (loading) {
+        return <Loading></Loading>;
+    }
 
     // Function to sort reviews by rating
     const handleSortByRating = () => {

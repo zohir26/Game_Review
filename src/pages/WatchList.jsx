@@ -2,18 +2,31 @@ import React, { useEffect, useState, useContext } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { AuthContext } from '../provider/AuthProvider';
-
+import Loading from '../components/Loading';
 
 const WatchList = () => {
     const [watchlist, setWatchlist] = useState([]);
+    const [loading, setLoading] = useState(true); // Initialize loading state
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch(`https://game-review-server-mu.vercel.app/myWatchList?userEmail=${user.email}`)
-            .then(res => res.json())
-            .then(data => setWatchlist(data))
-            .catch(error => console.error('Error fetching watchlist:', error));
-    }, [user.email]);
+        if (user?.email) {
+            fetch(`https://game-review-server-mu.vercel.app/myWatchList?userEmail=${user.email}`)
+                .then(res => res.json())
+                .then(data => {
+                    setWatchlist(data);
+                    setLoading(false); // Set loading to false once data is fetched
+                })
+                .catch(error => {
+                    console.error('Error fetching watchlist:', error);
+                    setLoading(false); // Set loading to false in case of error
+                });
+        }
+    }, [user?.email]);
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
         <>
