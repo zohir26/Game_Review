@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { AuthContext } from '../provider/AuthProvider';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const MyReview = () => {
     const { user } = useContext(AuthContext); // Fetch the current user from context
@@ -32,11 +33,7 @@ const MyReview = () => {
         );
     }
 
-    // Handle update functionality (placeholder)
-    const handleUpdate = (_id) => {
-        console.log(`Update review with id: ${_id}`);
-        // Implement the update logic, such as opening a form/modal to edit
-    };
+
 
     // Handle delete functionality
     const handleDelete = (_id) => {
@@ -111,12 +108,14 @@ const MyReview = () => {
                                     <td>{review.genre}</td>
                                     <td>
                                         {/* Update Button */}
-                                        <button 
-                                            onClick={() => handleUpdate(review._id)} 
-                                            className="text-blue-500 hover:text-blue-700 mr-2"
-                                        >
-                                            <FaEdit />
-                                        </button>
+                                    <Link to={`/updateReview/${review._id}`}>
+                                    <button 
+                                           
+                                           className="text-blue-500 hover:text-blue-700 mr-2"
+                                       >
+                                           <FaEdit />
+                                       </button>
+                                    </Link>
                                         {/* Delete Button */}
                                         <button 
                                             onClick={() => handleDelete(review._id)} 

@@ -15,6 +15,7 @@ import UpdateUser from "../pages/UpdateUser";
 import ViewDetails from "../pages/ViewDetails";
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
+import UpdateReview from "../pages/UpdateReview";
 
 
 const router = createBrowserRouter([
@@ -53,6 +54,13 @@ const router = createBrowserRouter([
       ),
       
     },
+    {
+      path: "/updateReview/:id",
+      element: <UpdateReview></UpdateReview>,
+      loader: ({params}) => 
+        fetch(`http://localhost:5000/updateReview/${params.id}`).then(res => res.json()),
+    },
+    
     {
       path: "/watchList",
       element: (
