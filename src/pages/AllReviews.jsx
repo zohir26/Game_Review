@@ -13,7 +13,16 @@ const AllReviews = () => {
         <> 
         <Navbar></Navbar>
         <div className="container mx-auto p-4 bg-gray-300">
+     
+     <div className='flex justify-between'>
+        <div>
         <h1 className='text-3xl font-bold py-4'>All Reviews Games</h1>
+        </div>
+        <div className='flex gap-4 '>
+            <button className='btn btn-success'>Sort by Year</button>
+            <button className='btn btn-warning'>Sort by rating</button>
+        </div>
+     </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
             {allReview.map((review, index) => (
