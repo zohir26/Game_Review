@@ -31,7 +31,7 @@ const WatchList = () => {
     return (
         <>
             <Navbar />
-            <div className="container mx-auto p-4">
+            <div className="container mx-auto p-4 min-h-screen">
                 <h2 className="text-3xl font-bold mb-4">My Watchlist</h2>
                 <div className="overflow-x-auto">
                     <table className="table table-zebra w-full">
@@ -58,7 +58,7 @@ const WatchList = () => {
                     </table>
                 </div>
             </div>
-            <Footer />
+          <Footer className=''></Footer>
         </>
     );
 };

@@ -55,10 +55,10 @@ const AllReviews = () => {
         <>
             <Navbar />
             <div className="container mx-auto p-4 bg-gray-300">
-                <div className='flex justify-between items-center'>
+                <div className='flex-col lg:flex-row justify-between items-center'>
                     <h1 className='text-3xl font-bold py-4'>All Reviewed Games</h1>
 
-                    <div className='flex gap-4'>
+                    <div className='flex-col gap-4 space-x-4 lg:flex-row'>
                         {/* Dropdown for Genre Filter */}
                         <select 
                             className="select select-bordered w-full max-w-xs"
@@ -73,12 +73,14 @@ const AllReviews = () => {
                         </select>
 
                         {/* Buttons for Sorting */}
-                        <button onClick={handleSortByYear} className='btn btn-success'>
+                            <div className='flex-col lg:flex-row space-x-4 mt-4 lg:mt-0 justify-center items-center'>
+                            <button onClick={handleSortByYear} className='btn btn-success'>
                             Sort by Year
                         </button>
                         <button onClick={handleSortByRating} className='btn btn-warning'>
                             Sort by Rating
                         </button>
+                            </div>
                     </div>
                 </div>
 
