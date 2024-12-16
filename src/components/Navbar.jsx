@@ -26,7 +26,7 @@ const Navbar = () => {
                     <NavLink to="/allReviews" className='hover:text-neon-green'><li>All Reviews</li></NavLink>
                     <NavLink to="/addReview" className='hover:text-neon-green'><li>Add Reviews</li></NavLink>
                     <NavLink to="/myReviews" className='hover:text-neon-green'><li>My Reviews</li></NavLink>
-                    <NavLink to="/watchList" className='hover:text-neon-green'><li>Watch List</li></NavLink>
+                    <NavLink to="/myWatchList" className='hover:text-neon-green'><li>Watch List</li></NavLink>
                     <NavLink to="/updateUser" className='text-white'><li>Update User</li></NavLink>
                 </>
             )}

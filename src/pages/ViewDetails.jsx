@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link, useParams } from 'react-router-dom';
+import { AuthContext } from '../provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const ViewDetails = () => {
+    const {user}=useContext(AuthContext)
     const { id } = useParams();
     const [review, setReview] = useState(null);
 
@@ -23,7 +26,42 @@ const ViewDetails = () => {
             </>
         );
     }
+const handleAddToWatchList=()=>{
+    const watchListData={
+        gameTitle:review.gameTitle,
+        reviewDescription: review.reviewDescription,
+        rating: review.rating,
+        publishingYear: review.publishingYear,
+        genre: review.genre,
+        gameCover: review.gameCover,
+        userEmail: user.email,      // Logged-in user's email
+        userName: user.displayName, // Logged-in user's name
+    }
 
+    // fetch my watchlist from database
+    fetch('http://localhost:5000/myWatchList',{
+        method:'POST',
+        headers:{
+            'content-type':'application/json'
+        },
+        body:JSON.stringify(watchListData)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        console.log(data)
+        if(data.insertedId){
+            Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Review has added to Watch List",
+                showConfirmButton: false,
+                timer: 1500
+              });
+        }
+        
+    })
+    .catch(error=>console.log('Error', error))
+}
     return (
         <>
             <Navbar />
@@ -43,10 +81,14 @@ const ViewDetails = () => {
                         <div className="mt-6">
                             <p className="text-sm text-gray-600">Reviewed by: <span className="font-semibold">{review.userName}</span> ({review.userEmail})</p>
                         </div>
-                        <div className="card-actions justify-end mt-6 flex gap-4">
-                        <Link to='/'>
+                        <div className="card-actions justify-end mt-6 flex ">
+                        <Link to='/myWatchList'>
                            
-                           <button className="btn btn-primary">Add to Watch list</button></Link>
+                           <button onClick={handleAddToWatchList}  className="btn btn-primary">Add to Watch list</button>
+                           
+                           </Link>
+                           
+                           
                            <Link to='/'>
                            
                            <button className="btn btn-primary">Back to Reviews</button></Link>
