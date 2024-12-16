@@ -13,7 +13,7 @@ const MyReview = () => {
     // Fetch the reviews on component mount or when user email changes
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/myReviews?userEmail=${user.email}`)
+            fetch(`https://game-review-server-mu.vercel.app/myReviews?userEmail=${user.email}`)
                 .then(res => res.json())
                 .then(data => setMyReviews(data))
                 .catch(error => console.error('Error fetching reviews:', error));
@@ -48,7 +48,7 @@ const MyReview = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Call API to delete the review
-                fetch(`http://localhost:5000/review/${_id}`, {
+                fetch(`https://game-review-server-mu.vercel.app/review/${_id}`, {
                     method: 'DELETE',
                 })
                     .then(res => res.json())

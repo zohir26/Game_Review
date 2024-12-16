@@ -11,7 +11,7 @@ const ViewDetails = () => {
     const [review, setReview] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/review/${id}`)
+        fetch(`https://game-review-server-mu.vercel.app/review/${id}`)
             .then(response => response.json())
             .then(data => setReview(data))
             .catch(error => console.error('Error fetching review:', error));
@@ -39,7 +39,7 @@ const handleAddToWatchList=()=>{
     }
 
     // fetch my watchlist from database
-    fetch('http://localhost:5000/myWatchList',{
+    fetch('https://game-review-server-mu.vercel.app/myWatchList',{
         method:'POST',
         headers:{
             'content-type':'application/json'

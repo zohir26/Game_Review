@@ -25,7 +25,7 @@ const GameReviewForm = () => {
     console.log(addReview);
 
 // send data to the server
-fetch('http://localhost:5000/addReview',{
+fetch('https://game-review-server-mu.vercel.app/addReview',{
     method:"POST",
     headers:{
         'content-type':'application/json'

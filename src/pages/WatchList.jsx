@@ -9,7 +9,7 @@ const WatchList = () => {
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/myWatchList?userEmail=${user.email}`)
+        fetch(`https://game-review-server-mu.vercel.app/myWatchList?userEmail=${user.email}`)
             .then(res => res.json())
             .then(data => setWatchlist(data))
             .catch(error => console.error('Error fetching watchlist:', error));
